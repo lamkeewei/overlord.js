@@ -54,12 +54,12 @@ User.find({}).remove(function() {
 Box.find({}).remove(function(){
   Box.create({
     name: 'SIS01',
-    location: '10.20.5.23',
+    address: '10.20.5.23',
     port: '1667',
     status: 'Offline'
   }, {
     name: 'SIS02',
-    location: '10.20.5.24',
+    address: '10.20.5.24',
     port: '1667',
     status: 'Offline'
   }, function(){

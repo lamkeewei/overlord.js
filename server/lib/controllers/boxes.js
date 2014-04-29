@@ -20,19 +20,19 @@ exports.create = function(req, res, next){
  * Update box 
  */
 exports.update = function(req, res, next){
-  var newBox = new Box(req.body);
+  var newBox = req.body;
+  var name = req.params.name;
 
-  Box.findOne({ _id: newBox.id }, function(err, box){
+  Box.findOne({ name: name }, function(err, box){
     if (err) return res.json(400, err);
 
-    box.name = newBox.name;
-    box.location = newBox.location;
-    box.port = newBox.port;
-    box.status = newBox.status; 
+    box.name = newBox.name || box.name;
+    box.address = newBox.address || box.address;
+    box.port = newBox.port || box.port;
+    box.status = newBox.status || box.status; 
 
     box.save(function(err){
       if (err) return res.json(400, err);
-
       res.send(200);
     });
   });

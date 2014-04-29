@@ -30,11 +30,11 @@ module.exports = function(app) {
 
   app.route('/api/boxes')
     .post(boxes.create)
-    .put(boxes.update)
     .get(boxes.getAll);
 
   app.route('/api/boxes/:name')
-    .get(boxes.getOne);
+    .get(boxes.getOne)
+    .put(boxes.update);
 
   // All undefined api routes should return a 404
   app.route('/api/*')

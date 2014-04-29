@@ -7,10 +7,12 @@ angular.module('serverApp')
     $scope.selectedBox = 'New Box';
 
     $scope.$watch('selectedBox', function(newVal, oldVal){
-      if(newVal !== 'New Box'){
+      if (newVal !== 'New Box'){
         $scope.box = Box.get({ name: newVal }, function(data){
           console.log(data);
         });
+      } else {
+        $scope.box = {};
       }
     });
 
