@@ -1,11 +1,30 @@
-<div class="header" ng-controller="NavbarCtrl">
-  <ul class="nav nav-pills pull-right">
-    <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-        <a ng-href="{{item.link}}">{{item.title}}</a>
-    </li>
-    <li ng-hide="currentUser" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
-    <li ng-hide="currentUser" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
-    <li ng-show="currentUser" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
-  </ul>
-  <h3 class="text-muted">server</h3>
-</div>
+<nav ng-controller="NavbarCtrl" class="navbar-fixed-top navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Overlord</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul ng-show="isLoggedIn()" class="nav navbar-nav">
+      <li ng-class="{ active: isActive(link.link) }" ng-repeat="link in links">
+        <a ng-href="{{link.link}}">{{link.title}}</a>
+      </li>
+    </ul>
+    
+    <ul ng-show="isLoggedIn()" class="nav navbar-nav navbar-right">
+      <li>
+        <p class="navbar-text">Signed in as {{user.name}}</p>
+      </li>
+      <li>
+          <button id="logout-btn" ng-click="logout()" class="btn btn-default navbar-btn">Logout</button>            
+      </li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
