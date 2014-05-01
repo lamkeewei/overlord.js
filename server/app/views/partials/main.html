@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-md-12 well">
-    <button class="btn btn-primary">Add New Server</button>
+    <button  ng-click="addServer()" class="btn btn-primary">Add New Server</button>
     <button class="btn btn-default">Refresh Status</button>
   </div>
 </div>
@@ -28,7 +28,7 @@
           <td>{{box.address}}</td>
           <td>{{box.port}}</td>
           <td>
-            <span class="label" ng-class="{ 'label-danger': box.status === 'Offline', 'label-success': box.status === 'Online'  }">{{box.status}}</span>
+            <span class="label" ng-class="{ 'label-danger': box.status === 'Offline', 'label-success': box.status === 'Onlinel '  }">{{box.status}}</span>
           </td>
         </tr>
       </tbody>

@@ -4,7 +4,8 @@ angular.module('serverApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -16,19 +17,6 @@ angular.module('serverApp', [
       .when('/login', {
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
-      })
-      .when('/signup', {
-        templateUrl: 'partials/signup',
-        controller: 'SignupCtrl'
-      })
-      .when('/settings', {
-        templateUrl: 'partials/settings',
-        controller: 'SettingsCtrl',
-        authenticate: true
-      })
-      .when('/boxes', {
-        templateUrl: 'partials/boxes',
-        controller: 'BoxCtrl'
       })
       .otherwise({
         redirectTo: '/'
