@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('MainCtrl', function ($scope, $http, Auth, $location, Box, $modal) {
+  .controller('MainCtrl', function ($scope, $http, Auth, $location, Box, $modal, hotkeys) {
     $scope.boxes = Box.query();
-    
+
     $scope.logout = function() {
       Auth.logout()
       .then(function() {
@@ -59,4 +59,9 @@ angular.module('serverApp')
         });
       });
     };
+
+    hotkeys.add('alt+a', 'New server', function(event, hotkey){
+      event.preventDefault();
+      $scope.addServer();
+    });
   });

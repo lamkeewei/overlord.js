@@ -5,7 +5,8 @@ angular.module('serverApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'cfp.hotkeys'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
