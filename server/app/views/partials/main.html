@@ -20,6 +20,7 @@
           <th>Address</th>
           <th>Port</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -28,8 +29,14 @@
           <td>{{box.address}}</td>
           <td>{{box.port}}</td>
           <td>
-            <span class="label" ng-class="{ 'label-danger': box.status === 'Offline', 'label-success': box.status === 'Onlinel '  }">{{box.status}}</span>
+            <span class="label" ng-class="{ 'label-danger': box.status === 'Offline', 'label-success': box.status === 'Online'  }">{{box.status}}</span>
           </td>
+          <td>
+            <button ng-click="deleteServer(box.name)" class="btn btn-primary">Delete</button>
+          </td>
+        </tr>
+        <tr ng-show="boxes.length < 1">
+          <td colspan="5" class="text-center">No servers added.</td>
         </tr>
       </tbody>
     </table>

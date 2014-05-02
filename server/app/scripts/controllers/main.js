@@ -21,4 +21,11 @@ angular.module('serverApp')
         $scope.boxes = Box.query();
       });
     };
+
+    $scope.deleteServer = function(name){
+      console.log(name);
+      Box.delete({ name: name }, function(){
+        $scope.boxes = Box.query();
+      });
+    };
   });

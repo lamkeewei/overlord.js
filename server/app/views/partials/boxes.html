@@ -23,7 +23,7 @@
 
       <div class="form-group" ng-class="{ 'has-error': form.name.$invalid && submitted }">
         <label class="control-label">Port: </label>
-        <input type="number" name="port" class="form-control" placeholder="Server name" ng-model="box.port" required />
+        <input type="number" name="port" class="form-control" placeholder="Port number" ng-model="box.port" required />
         <p class="help-block" ng-show="form.port.$error.required && submitted">
           A port number is needed
         </p>

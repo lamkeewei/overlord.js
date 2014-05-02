@@ -61,3 +61,15 @@ exports.getOne = function(req, res, next){
     res.json(box);
   });
 };
+
+/**
+ * Delete one box
+ */
+exports.deleteBox = function(req, res, next){
+  var name = req.params.name;
+
+  Box.findOne({ name: name }).remove().exec(function(err){
+    if (err) return next(err);
+    res.send(200);
+  });
+};

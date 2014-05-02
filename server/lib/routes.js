@@ -34,7 +34,8 @@ module.exports = function(app) {
 
   app.route('/api/boxes/:name')
     .get(boxes.getOne)
-    .put(boxes.update);
+    .put(boxes.update)
+    .delete(boxes.deleteBox);
 
   // All undefined api routes should return a 404
   app.route('/api/*')
