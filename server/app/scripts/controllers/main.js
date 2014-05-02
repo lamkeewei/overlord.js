@@ -60,7 +60,7 @@ angular.module('serverApp')
       });
     };
 
-    hotkeys.add('alt+a', 'New server', function(event, hotkey){
+    hotkeys.add('alt+n', 'New server', function(event, hotkey){
       event.preventDefault();
       $scope.addServer();
     });

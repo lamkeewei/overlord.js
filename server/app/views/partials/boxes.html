@@ -1,13 +1,13 @@
 <div class="modal-content">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <button type="button" class="close" ng-click="$dismiss()" aria-hidden="true">&times;</button>
     <h4 class="modal-title">Add New Server</h4>
   </div>
   <div class="modal-body">
-    <form class="form" name="form" novalidate>
+    <form class="form" name="form" ng-submit="submitForm(form)" novalidate>
       <div class="form-group" ng-class="{ 'has-error': form.name.$invalid && submitted }">
         <label class="control-label">Name: </label>
-        <input type="text" name="name" class="form-control" placeholder="Server name" ng-model="box.name" required />
+        <input type="text" name="name" class="form-control" placeholder="Server name" ng-model="box.name" focus ng-disabled="Data.box" required />
         <p class="help-block" ng-show="form.name.$error.required && submitted">
           A name is required
         </p>
@@ -28,6 +28,9 @@
           A port number is needed
         </p>
       </div>
+      
+      <!-- hack to enable enter to submit form -->
+      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
   </div>
   <div class="modal-footer">
