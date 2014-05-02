@@ -1,19 +1,18 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('BoxCtrl', function ($scope, Box, $modalInstance) {
+  .controller('BoxCtrl', function ($scope, Box, $modalInstance, Data) {
     $scope.box = {};
+    $scope.Data = Data;
+    if($scope.Data.box){
+      $scope.box = $scope.Data.box;
+    }
 
-    $scope.addBox = function(form){
+    $scope.submitForm= function(form){
       $scope.submitted = true;
 
       if(form.$valid){
-        var box = new Box($scope.box);
-        box.$save(function(){
-          $scope.box = {};
-          $scope.submitted = false;
-          $modalInstance.close();
-        });
+        $modalInstance.close($scope.box);
       }
     };
   });

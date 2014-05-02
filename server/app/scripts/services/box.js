@@ -5,8 +5,7 @@ angular.module('serverApp')
     return $resource('/api/boxes/:name', {},
     {
       update: {
-        method: 'PUT',
-        params: '@name'
+        method: 'PUT'
       }
     });
   });
