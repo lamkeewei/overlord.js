@@ -6,13 +6,19 @@ angular.module('serverApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'cfp.hotkeys'
+  'cfp.hotkeys',
+  'ui.ace'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'partials/main',
         controller: 'MainCtrl',
+        authenticate: true
+      })
+      .when('/script', {
+        templateUrl: 'partials/script',
+        controller: 'ScriptCtrl',
         authenticate: true
       })
       .when('/login', {

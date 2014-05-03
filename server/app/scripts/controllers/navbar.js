@@ -8,7 +8,7 @@ angular.module('serverApp')
         link: '/'
       }, {
         title: 'Scripts',
-        link: '/scripts'
+        link: '/script'
       }
     ];
 

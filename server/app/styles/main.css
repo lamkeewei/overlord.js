@@ -37,3 +37,11 @@
 #servers-table thead th:nth-child(2) {
   width: 30%;
 }
+
+.ace_editor {
+  height: 200px;
+}
+
+#script-editor {
+  border: solid gainsboro 1px;
+}
