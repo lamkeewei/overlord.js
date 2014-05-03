@@ -89,8 +89,18 @@ angular.module('serverApp')
         selected = box.selected && selected;
       });
 
+      if($scope.boxes.length < 1){
+        selected = false;
+      }
+
       $scope.selectedAll = selected;
       return selected;
+    };
+
+    $scope.selectAll = function(){
+      angular.forEach($scope.boxes, function(box, i){
+        box.selected = !$scope.selectedAll;
+      });
     };
 
     hotkeys.add('alt+n', 'New server', function(event, hotkey){
@@ -101,5 +111,10 @@ angular.module('serverApp')
     hotkeys.add('alt+x', 'Delete selected servers', function(event, hotkey){
       event.preventDefault();
       $scope.deleteSelected();
+    });
+
+    hotkeys.add('alt+a', 'Select all servers', function(event, hotkey){
+      event.preventDefault();
+      $scope.selectAll();
     });
   });
