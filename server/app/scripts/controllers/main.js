@@ -83,8 +83,23 @@ angular.module('serverApp')
       });
     };
 
+    $scope.isAllSelected = function(){
+      var selected = true;
+      angular.forEach($scope.boxes, function(box, i){
+        selected = box.selected && selected;
+      });
+
+      $scope.selectedAll = selected;
+      return selected;
+    };
+
     hotkeys.add('alt+n', 'New server', function(event, hotkey){
       event.preventDefault();
       $scope.addServer();
+    });
+
+    hotkeys.add('alt+x', 'Delete selected servers', function(event, hotkey){
+      event.preventDefault();
+      $scope.deleteSelected();
     });
   });
