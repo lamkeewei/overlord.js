@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('MainCtrl', function ($scope, $http, Auth, $location, Box, $modal, hotkeys) {
+  .controller('MainCtrl', function ($scope, $http, Auth, $location, Box, $modal, hotkeys, $q) {
     $scope.boxes = Box.query();
 
     $scope.logout = function() {
@@ -57,6 +57,29 @@ angular.module('serverApp')
             $scope.boxes = Box.query();
           });
         });
+      });
+    };
+
+    $scope.selectedAll = false;
+
+    $scope.selectAll = function(){
+      angular.forEach($scope.boxes, function(box, i){
+        box.selected = !$scope.selectedAll;
+      });
+
+      $scope.selectedAll = !$scope.selectedAll;
+    };
+
+    $scope.deleteSelected = function(){
+      var promises = [];
+      angular.forEach($scope.boxes, function(box, i){
+        if (box.selected) {
+          promises.push(Box.delete({ name: box.name }).$promise);
+        }
+      });
+
+      $q.all(promises).then(function(){
+        $scope.boxes = Box.query();
       });
     };
 

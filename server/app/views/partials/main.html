@@ -8,14 +8,18 @@
   <div class="col-md-12 well">
     <button  ng-click="addServer()" class="btn btn-primary">Add New Server</button>
     <button class="btn btn-default">Refresh Status</button>
+    <button class="btn btn-danger" ng-click="deleteSelected()" >Delete Selected</button>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <table class="table table-striped table-bordered table-hover">
+    <table id="servers-table" class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
+          <th>
+            <input ng-checked="isAllSelected()" type="checkbox" ng-click="selectAll()" />
+          </th>
           <th>Server Name</th>
           <th>Address</th>
           <th>Port</th>
@@ -24,7 +28,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="box in boxes">        
+        <tr ng-repeat="box in boxes | orderBy:'name' " ng-class="{ 'info': box.selected }">
+          <td>
+            <input type="checkbox" ng-model="box.selected" />
+          </td>
           <td>{{box.name}}</td>
           <td>{{box.address}}</td>
           <td>{{box.port}}</td>
