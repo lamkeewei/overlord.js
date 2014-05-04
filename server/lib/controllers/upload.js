@@ -1,22 +1,24 @@
 'use strict';
 
-var resumable = require('./resumable.js')('/tmp/resumable.js/');
+var path = require('path'),
+    fs = require('fs'),
+    filepath = path.normalize(__dirname + '../../../file'),
+    resumable = require('./resumable.js')(filepath);
 
 exports.uploadFile = function(req, res){
-  console.log(req.body);
   resumable.post(req, function(status, filename, original_filename, identifier){
       console.log('POST', status, original_filename, identifier);
-
-      res.send(status, {
-          // NOTE: Uncomment this funciton to enable cross-domain request.
-          //'Access-Control-Allow-Origin': '*'
-      });
+      res.send(200);
   });
 };
 
 exports.statusCheck = function(req, res){
   resumable.get(req, function(status, filename, original_filename, identifier){
     console.log('GET', status);
-    res.send(status, (status === 'found' ? 200 : 404));
+    res.send(status, (status === 'found' ? 200 : 204));
   });
+};
+
+exports.downloadFile = function(req, res){
+  resumable.write(req.params.identifier, res);
 };

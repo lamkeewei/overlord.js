@@ -139,15 +139,6 @@ module.exports = resumable = function(temporaryFolder){
     }
   };
 
-
-  // Pipe chunks directly in to an existsing WritableStream
-  //   r.write(identifier, response);
-  //   r.write(identifier, response, {end:false});
-  //
-  //   var stream = fs.createWriteStream(filename);
-  //   r.write(identifier, stream);
-  //   stream.on('data', function(data){...});
-  //   stream.on('end', function(){...});
   $.write = function(identifier, writableStream, options) {
       options = options || {};
       options.end = (typeof options.end === 'undefined' ? true : options.end);
@@ -190,7 +181,7 @@ module.exports = resumable = function(temporaryFolder){
 
           var chunkFilename = getChunkFilename(number, identifier);
 
-          //console.log('removing pipeChunkRm ', number, 'chunkFilename', chunkFilename);
+          console.log('removing pipeChunkRm ', number, 'chunkFilename', chunkFilename);
           path.exists(chunkFilename, function(exists) {
               if (exists) {
 

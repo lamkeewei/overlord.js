@@ -43,6 +43,9 @@ module.exports = function(app) {
     .post(multiparty, upload.uploadFile)
     .get(upload.statusCheck);
 
+  app.route('/api/download/:identifier')
+    .get(upload.downloadFile);
+    
   // All undefined api routes should return a 404
   app.route('/api/*')
     .get(function(req, res) {

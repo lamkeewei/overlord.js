@@ -9,4 +9,10 @@ angular.module('serverApp')
       console.log(file);
       $scope.$apply();
     });
+    $scope.r.on('fileProgress', function(file){
+      
+    });
+    $scope.r.on('fileSuccess', function(file){
+      console.log('completed');
+    });
   });
