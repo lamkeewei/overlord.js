@@ -70,4 +70,11 @@ input[type="checkbox"]:hover{
 
 #drop-zone.resumable-dragover {
   background-color: rgb(226,239,247);
+  cursor: move;
+}
+
+#upload-list {
+  margin-top: 20px;
+  list-style: none;
+  padding-left: 0;
 }

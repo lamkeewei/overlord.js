@@ -5,7 +5,9 @@ var api = require('./controllers/api'),
     users = require('./controllers/users'),
     session = require('./controllers/session'),
     boxes = require('./controllers/boxes.js'),
-    middleware = require('./middleware');
+    middleware = require('./middleware'),
+    upload = require('./controllers/upload.js'),
+    multiparty = require('connect-multiparty')();
 
 /**
  * Application routes
@@ -36,6 +38,10 @@ module.exports = function(app) {
     .get(boxes.getOne)
     .put(boxes.update)
     .delete(boxes.deleteBox);
+
+  app.route('/api/upload')
+    .post(multiparty, upload.uploadFile)
+    .get(upload.statusCheck);
 
   // All undefined api routes should return a 404
   app.route('/api/*')
