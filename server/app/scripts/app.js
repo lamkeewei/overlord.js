@@ -21,6 +21,11 @@ angular.module('serverApp', [
         controller: 'ScriptCtrl',
         authenticate: true
       })
+      .when('/upload', {
+        templateUrl: 'partials/upload',
+        controller: 'UploadCtrl',
+        authenticate: true
+      })
       .when('/login', {
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
@@ -45,6 +50,9 @@ angular.module('serverApp', [
         }
       };
     }]);
+  })
+  .service('Resumable', function(){
+    return window.Resumable;
   })
   .run(function ($rootScope, $location, Auth) {
 

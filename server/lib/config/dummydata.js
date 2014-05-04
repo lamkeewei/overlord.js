@@ -64,5 +64,65 @@ Box.find({}).remove(function(){
     status: 'Offline'
   }, function(){
     console.log('finished populating boxes');
+  }, {
+    name: 'SIS03',
+    address: '10.20.5.23',
+    port: '1667',
+    status: 'Offline'
+  }, {
+    name: 'SIS04',
+    address: '10.20.5.24',
+    port: '1667',
+    status: 'Offline'
+  }, function(){
+    console.log('finished populating boxes');
+  }, {
+    name: 'SIS05',
+    address: '10.20.5.23',
+    port: '1667',
+    status: 'Offline'
+  }, {
+    name: 'SIS06',
+    address: '10.20.5.24',
+    port: '1667',
+    status: 'Offline'
+  }, function(){
+    console.log('finished populating boxes');
+  } ,{
+    name: 'SIS07',
+    address: '10.20.5.23',
+    port: '1667',
+    status: 'Offline'
+  }, {
+    name: 'SIS08',
+    address: '10.20.5.24',
+    port: '1667',
+    status: 'Offline'
+  }, function(){
+    console.log('finished populating boxes');
+  }, {
+    name: 'SIS01',
+    address: '10.20.5.23',
+    port: '1667',
+    status: 'Offline'
+  }, {
+    name: 'SIS02',
+    address: '10.20.5.24',
+    port: '1667',
+    status: 'Offline'
+  }, function(){
+    console.log('finished populating boxes');
+  }, {
+    name: 'SIS01',
+    address: '10.20.5.23',
+    port: '1667',
+    status: 'Offline'
+  }, {
+    name: 'SIS02',
+    address: '10.20.5.24',
+    port: '1667',
+    status: 'Offline'
+  }, function(){
+    console.log('finished populating boxes');
   });
 });

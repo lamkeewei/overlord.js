@@ -39,9 +39,35 @@
 }
 
 .ace_editor {
-  height: 200px;
+  height: 250px;
 }
 
 #script-editor {
   border: solid gainsboro 1px;
+}
+
+input[type="checkbox"]:hover{
+  cursor: pointer;
+}
+
+#drop-zone {
+  margin-top: 10px;
+  border: 5px dashed gainsboro;
+  height: 100px;
+  text-align: center;
+}
+
+#drop-zone:hover {
+  cursor: move;
+}
+
+#drop-zone p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+}
+
+#drop-zone.resumable-dragover {
+  background-color: rgb(226,239,247);
 }

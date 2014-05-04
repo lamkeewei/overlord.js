@@ -9,6 +9,9 @@ angular.module('serverApp')
       }, {
         title: 'Scripts',
         link: '/script'
+      } , {
+        title: 'Upload',
+        link: '/upload'
       }
     ];
 

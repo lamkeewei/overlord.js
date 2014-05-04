@@ -13,7 +13,8 @@
     "angular-route": ">=1.2.*",
     "angular-bootstrap": "~0.10.0",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.1.0",
-    "angular-ui-ace": "bower"
+    "angular-ui-ace": "bower",
+    "resumablejs": "*"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

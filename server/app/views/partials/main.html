@@ -1,14 +1,16 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>Servers</h1>
+    <h1>Servers <small>Manage your servers</small></h1>
   </div> 
 </div>
 
 <div class="row">
-  <div class="col-md-12 well">
-    <button  ng-click="addServer()" class="btn btn-primary">Add New Server</button>
-    <button class="btn btn-default">Refresh Status</button>
-    <button class="btn btn-danger" ng-click="deleteSelected()" >Delete Selected</button>
+  <div class="col-md-12">
+    <div class="well">      
+      <button  ng-click="addServer()" class="btn btn-primary">Add New Server</button>
+      <button class="btn btn-default">Refresh Status</button>
+      <button class="btn btn-danger" ng-click="deleteSelected()" >Delete Selected</button>
+    </div>
   </div>
 </div>
 
@@ -39,8 +41,8 @@
             <span class="label" ng-class="{ 'label-danger': box.status === 'Offline', 'label-success': box.status === 'Online'  }">{{box.status}}</span>
           </td>
           <td>
-            <button ng-click="deleteServer(box.name)" class="btn btn-primary">Delete</button>
-            <button ng-click="editServer(box.name)" class="btn btn-primary">Edit</button>
+            <button ng-click="deleteServer(box.name)" class="btn btn-default">Delete</button>
+            <button ng-click="editServer(box.name)" class="btn btn-default">Edit</button>
           </td>
         </tr>
         <tr ng-show="boxes.length < 1">
