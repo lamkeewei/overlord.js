@@ -8,8 +8,9 @@
   <div class="col-md-12">
     <div class="well">
       <button resumable-browse class="btn btn-primary">Browse</button>
-      <button class="btn btn-danger" ng-click="r.cancel()" ng-show="haveFiles">Cancel Upload</button>
-      <button class="btn btn-success" ng-click="r.upload()" ng-show="haveFiles">Start Uploads</button>
+      <button class="btn btn-danger" ng-click="r.cancel()" ng-show="!r.isUploading()">Clear All</button>
+      <button class="btn btn-warning" ng-click="r.pause()" ng-show="r.isUploading()">Pause Upload</button>
+      <button class="btn btn-success" ng-click="r.upload()" ng-show="!r.isUploading()">Start Uploads</button>
     </div>
   </div>
 </div>

@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('UploadCtrl', function ($scope, $http, Resumable) {
+  .controller('UploadCtrl', function ($scope, $http, Resumable, $location) {
     $scope.haveFiles = false;
 
     $scope.r = new Resumable({
-      target: '/api/upload'
+      target: '/api/upload',
+      simultaneousUploads: 3
     });
     
     $scope.r.on('fileAdded', function(file){
@@ -13,22 +14,15 @@ angular.module('serverApp')
       $scope.$apply();
     });
 
-    $scope.r.on('fileRetry', function(){
-      console.log('file retry');
-      $scope.$apply();
-    });
-
     $scope.r.on('complete', function(){
-      $scope.$apply(function(){
-        $scope.haveFiles = false;
-      });
+      if ($scope.r.files.length > 0){
+        $scope.$apply(function(){
+          $scope.haveFiles = false;
+        });
+      }
     });
 
     $scope.r.on('cancel', function(){
       $scope.haveFiles = false;
-    });
-
-    $scope.r.on('catchAll', function(event){
-      console.log(event);
     });
   });

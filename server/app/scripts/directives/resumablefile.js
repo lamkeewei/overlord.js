@@ -30,6 +30,13 @@ angular.module('serverApp')
           }
         });
 
+        // resumable.on('fileRetry', function(file){
+        //   if(file.fileName === fileName) {
+        //     console.log('retry');
+        //     scope.$apply();
+        //   }
+        // });
+
         scope.retry = function(){
           scope.$apply(function(){
             scope.file.retry();
