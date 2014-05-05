@@ -1,3 +1,28 @@
+/*Overrde modal styling; remove animations*/
+.modal.fade {
+  opacity: 1;
+}
+
+.modal-backdrop.fade {
+  opacity: 0.5;
+}
+
+.modal-backdrop {
+  background-color: #3d464d;
+}
+
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+.modal-content {
+  box-shadow: none;
+  border: none;
+}
+/*end*/
+
 #main-container {
   padding-top: 50px;
 }
