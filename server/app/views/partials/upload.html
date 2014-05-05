@@ -7,8 +7,9 @@
 <div class="row">
   <div class="col-md-12">
     <div class="well">
-      <button resumable-browse class="btn btn-primary">Browse</button>    
-      <button class="btn btn-success" ng-click="r.upload()" ng-show="r.files.length > 0">Start Upload</button>  
+      <button resumable-browse class="btn btn-primary">Browse</button>
+      <button class="btn btn-danger" ng-click="r.cancel()" ng-show="haveFiles">Cancel Upload</button>
+      <button class="btn btn-success" ng-click="r.upload()" ng-show="haveFiles">Start Uploads</button>
     </div>
   </div>
 </div>
@@ -26,12 +27,7 @@
 <div class="row">
   <div class="col-md-12">
     <ul id="upload-list">
-      <li ng-repeat="file in r.files">
-        {{file.fileName}}
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"></div>
-        </div>
-      </li>
+      <li ng-repeat="file in r.files" resumable-file="file"></li>
     </ul>
   </div>
 </div>
