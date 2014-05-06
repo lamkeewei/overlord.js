@@ -105,7 +105,7 @@ describe('Box Model', function(){
 
           Box.findOne({ name: found.name }, function(err, changedBox){
             should.exist(changedBox);
-            changedBox.address.should.be.equal('changed');
+            changedBox.address.should.be.eql('changed');
             done();
           });
         });
