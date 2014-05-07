@@ -3,7 +3,8 @@
 var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Thing = mongoose.model('Thing'),
-  Box = mongoose.model('Box');
+  Box = mongoose.model('Box'),
+  File = mongoose.model('File');
 
 /**
  * Populate database with sample application data
@@ -49,6 +50,9 @@ User.find({}).remove(function() {
     }
   );
 });
+
+// Clear old uploads 
+File.find({}).remove().exec();
 
 // Clear old boxes, then add new ones
 Box.find({}).remove(function(){

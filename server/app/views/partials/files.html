@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="well">
-      <button class="btn btn-default">Options</button>
+      <button class="btn btn-primary" ng-click="addFile()">Add Files</button>
     </div>    
   </div>
 </div>
@@ -30,6 +30,9 @@
             <input type="checkbox" />
           </td>
           <td>{{file.name}}</td>
+        </tr>
+        <tr ng-show="files.length < 1">
+          <td colspan="2" class="text-center">No files deployed.</td>
         </tr>
       </tbody>
     </table>

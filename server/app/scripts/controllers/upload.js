@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('UploadCtrl', function ($scope, $http, Resumable, $location) {
+  .controller('UploadCtrl', function ($scope, $http, $modalInstance, Resumable, $location) {
     $scope.haveFiles = false;
 
     $scope.r = new Resumable({
@@ -18,6 +18,7 @@ angular.module('serverApp')
       if ($scope.r.files.length > 0){
         $scope.$apply(function(){
           $scope.haveFiles = false;
+          $modalInstance.close();
         });
       }
     });
@@ -25,4 +26,8 @@ angular.module('serverApp')
     $scope.r.on('cancel', function(){
       $scope.haveFiles = false;
     });
+
+    $scope.upload = function(){
+      $scope.r.upload();
+    };
   });

@@ -21,11 +21,6 @@ angular.module('serverApp', [
         controller: 'ScriptCtrl',
         authenticate: true
       })
-      .when('/upload', {
-        templateUrl: 'partials/upload',
-        controller: 'UploadCtrl',
-        authenticate: true
-      })
       .when('/files', {
         templateUrl: 'partials/files',
         controller: 'FileCtrl',
