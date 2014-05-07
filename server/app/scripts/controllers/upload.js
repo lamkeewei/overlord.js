@@ -5,7 +5,7 @@ angular.module('serverApp')
     $scope.haveFiles = false;
 
     $scope.r = new Resumable({
-      target: '/api/upload',
+      target: '/api/files/upload',
       simultaneousUploads: 3
     });
     

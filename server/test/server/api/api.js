@@ -86,3 +86,34 @@ describe('/api/boxes', function(){
         });
   });
 });
+
+describe('POST /api/files', function(){
+  it('should be able to add a file successfully', function(done){
+    var file = {
+      name: 'abc.png',
+      identifier: 'abcpng'
+    };
+
+    request(app)
+      .post('/api/files')
+      .send(file)
+      .expect(200)
+      .end(function(err, res){
+        should.not.exist(err);
+        done();
+      });
+  });
+});
+
+describe('GET /api/files', function(){
+  it('should return all files', function(done){
+    request(app)
+      .get('/api/files')
+      .expect(200)
+      .end(function(err, res){
+        should.not.exist(err);
+        res.body.should.be.instanceof(Array);
+        done();
+      });
+  });
+});

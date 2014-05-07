@@ -1,8 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Box = mongoose.model('Box'),
-    passport = require('passport');
+    Box = mongoose.model('Box');
 
 /**
  * Create box 

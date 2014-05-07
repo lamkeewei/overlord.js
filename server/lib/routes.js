@@ -5,6 +5,7 @@ var api = require('./controllers/api'),
     users = require('./controllers/users'),
     session = require('./controllers/session'),
     boxes = require('./controllers/boxes.js'),
+    file = require('./controllers/files.js'),
     middleware = require('./middleware'),
     upload = require('./controllers/upload.js'),
     multiparty = require('connect-multiparty')();
@@ -39,11 +40,15 @@ module.exports = function(app) {
     .put(boxes.update)
     .delete(boxes.deleteBox);
 
-  app.route('/api/upload')
+  app.route('/api/files')
+    .post(file.create)
+    .get(file.getAllFiles);
+
+  app.route('/api/files/upload')
     .post(multiparty, upload.uploadFile)
     .get(upload.statusCheck);
 
-  app.route('/api/download/:identifier')
+  app.route('/api/files/download/:identifier')
     .get(upload.downloadFile);
     
   // All undefined api routes should return a 404

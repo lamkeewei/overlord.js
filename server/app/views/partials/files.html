@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Manage Your Files</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="well">
+      <button class="btn btn-default">Options</button>
+    </div>    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3>File Store</h3>
+    <table class="file-table table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" />
+          </th>
+          <th>File Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="file in files">
+          <td>
+            <input type="checkbox" />
+          </td>
+          <td>{{file.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-1"></div>
+
+  <div class="col-md-6">
+    <h3>Deployed Files</h3>
+    <table class="file-table table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" />
+          </th>
+          <th>File Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="file in fileStore">
+          <td></td>
+          <td></td>
+        </tr>
+        <tr ng-show="fileStore.length < 1">
+          <td colspan="2" class="text-center">No files deployed.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

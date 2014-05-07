@@ -16,14 +16,19 @@ angular.module('serverApp', [
         controller: 'MainCtrl',
         authenticate: true
       })
-      .when('/script', {
-        templateUrl: 'partials/script',
+      .when('/scripts', {
+        templateUrl: 'partials/scripts',
         controller: 'ScriptCtrl',
         authenticate: true
       })
       .when('/upload', {
         templateUrl: 'partials/upload',
         controller: 'UploadCtrl',
+        authenticate: true
+      })
+      .when('/files', {
+        templateUrl: 'partials/files',
+        controller: 'FileCtrl',
         authenticate: true
       })
       .when('/login', {

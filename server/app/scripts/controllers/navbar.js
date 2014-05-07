@@ -8,10 +8,13 @@ angular.module('serverApp')
         link: '/'
       }, {
         title: 'Scripts',
-        link: '/script'
-      } , {
+        link: '/scripts'
+      }, {
         title: 'Upload',
         link: '/upload'
+      }, {
+        title: 'Files',
+        link: '/files'
       }
     ];
 

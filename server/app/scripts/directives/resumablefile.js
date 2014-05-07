@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('serverApp')
-  .directive('resumableFile', function () {
+  .directive('resumableFile', function (File) {
     return {
       templateUrl: 'partials/resumableFile',
       restrict: 'A',
@@ -26,7 +26,12 @@ angular.module('serverApp')
           if(file.fileName === fileName){
             progressBar.addClass('progress-bar-success');
             scope.isComplete = true;
-            scope.$apply();
+            scope.$apply(function(){
+              File.save({
+                name: file.fileName,
+                identifier: file.uniqueIdentifier
+              });
+            });
           }
         });
 
