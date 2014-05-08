@@ -22,6 +22,7 @@
             <input type="checkbox" />
           </th>
           <th>File Name</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -30,9 +31,14 @@
             <input type="checkbox" />
           </td>
           <td>{{file.name}}</td>
+          <td>
+            <button class="btn btn-default btn-sm" ng-click="deleteFile(file._id)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </td>
         </tr>
         <tr ng-show="files.length < 1">
-          <td colspan="2" class="text-center">No files deployed.</td>
+          <td colspan="3" class="text-center">No files uploaded.</td>
         </tr>
       </tbody>
     </table>
@@ -49,15 +55,17 @@
             <input type="checkbox" />
           </th>
           <th>File Name</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="file in fileStore">
           <td></td>
           <td></td>
+          <td></td>
         </tr>
         <tr ng-show="fileStore.length < 1">
-          <td colspan="2" class="text-center">No files deployed.</td>
+          <td colspan="3" class="text-center">No files deployed.</td>
         </tr>
       </tbody>
     </table>

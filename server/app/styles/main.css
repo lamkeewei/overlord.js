@@ -122,3 +122,12 @@ input[type="checkbox"]:hover{
 .file-table tbody td:first-child {
   text-align: center;
 }
+
+.file-table thead th:last-child {
+  width: 15%;
+  text-align: center;
+}
+
+.file-table tbody td:last-child {
+  text-align: center;
+}

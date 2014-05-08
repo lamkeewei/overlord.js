@@ -175,7 +175,7 @@ module.exports = resumable = function(temporaryFolder){
 
   $.clean = function(identifier, options) {
       options = options || {};
-
+      
       // Iterate over each chunk
       var pipeChunkRm = function(number) {
 

@@ -1,8 +1,10 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    File = mongoose.model('File');
-
+    File = mongoose.model('File'),
+    path = require('path'),
+    filepath = path.normalize(__dirname + '../../../file'),
+    resumable = require('./resumable.js')(filepath);
 
 /**
  * Create file 
@@ -16,6 +18,10 @@ exports.create = function(req, res, next){
   });
 };
 
+
+/**
+ * Get all file 
+ */
 exports.getAllFiles = function(req, res, next){
   File.find({}, function(err, files){
     if (err) return res.send(400, err);
@@ -23,3 +29,18 @@ exports.getAllFiles = function(req, res, next){
     res.json(200, files);
   });
 };
+
+/**
+ * Delete file 
+ */
+ exports.delete = function(req, res, next){
+  var id = req.params.id;
+  File.findByIdAndRemove(id, function(err, file){
+    if (err) return res.send(400, err);
+    resumable.clean(file.identifier, {
+      onDone: function(){
+        res.send(200);
+      }
+    });    
+  });
+ };

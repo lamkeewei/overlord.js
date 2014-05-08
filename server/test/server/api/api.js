@@ -117,3 +117,24 @@ describe('GET /api/files', function(){
       });
   });
 });
+
+describe('DELETE /api/files/:id', function(){
+  it('should delete a file properly', function(done){
+    request(app)
+      .get('/api/files')
+      .expect(200)
+      .end(function(err, res){
+        should.not.exist(err);
+        res.body.should.be.instanceof(Array);
+
+        var files = res.body;
+        request(app)
+          .del('/api/files/' + files[0]._id)
+          .expect(200)
+          .end(function(err, res){
+            should.not.exist(err);
+            done();
+          });
+      });
+  });
+});
