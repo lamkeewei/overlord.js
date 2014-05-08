@@ -8,6 +8,7 @@
   <div class="col-md-12">
     <div class="well">
       <button class="btn btn-primary" ng-click="addFile()">Add Files</button>
+      <button class="btn btn-danger" ng-click="deleteSelectedFiles()">Delete Selected Files</button>
     </div>    
   </div>
 </div>
@@ -19,16 +20,16 @@
       <thead>
         <tr>
           <th>
-            <input type="checkbox" />
+            <input type="checkbox" ng-click="selectAll()" ng-checked="isAllSelected()" />
           </th>
           <th>File Name</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="file in files">
+        <tr ng-repeat="file in files" ng-class="{'info': file.selected }">
           <td>
-            <input type="checkbox" />
+            <input type="checkbox" ng-model="file.selected"/>
           </td>
           <td>{{file.name}}</td>
           <td>
