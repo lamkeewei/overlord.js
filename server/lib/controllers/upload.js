@@ -1,8 +1,8 @@
 'use strict';
 
-var path = require('path'),
-    fs = require('fs'),
-    filepath = path.normalize(__dirname + '../../../file'),
+var fs = require('fs'),
+    config = require('./../config/config.js'),
+    filepath = config.filesLoc,
     resumable = require('./resumable.js')(filepath);
 
 exports.uploadFile = function(req, res){

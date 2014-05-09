@@ -1,10 +1,17 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+var path = require('path'),
+    fs = require('fs'),
+    mongoose = require('mongoose'),
     File = mongoose.model('File'),
-    path = require('path'),
-    filepath = path.normalize(__dirname + '../../../file'),
+    config = require('./../config/config.js'),
+    filepath = config.filesLoc,
+    deploypath = config.deployLoc,
     resumable = require('./resumable.js')(filepath);
+
+try {
+  fs.mkdirSync(deploypath);
+}catch(e){}
 
 /**
  * Create file 
@@ -44,3 +51,19 @@ exports.getAllFiles = function(req, res, next){
     });    
   });
  };
+
+/**
+ * Deploy file 
+ */
+exports.deploy = function(req, res, next){
+  var id = req.params.id;
+  File.findOne({ _id: id }, function(err, file){
+    if (err) return res.json('400', err);
+    var stream = fs.createWriteStream(path.join(deploypath, file.name));
+    resumable.write(file.identifier, stream, {
+      onDone: function(){
+        res.send(200);
+      }
+    });    
+  });
+};

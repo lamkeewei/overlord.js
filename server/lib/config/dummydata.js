@@ -51,9 +51,6 @@ User.find({}).remove(function() {
   );
 });
 
-// Clear old uploads 
-File.find({}).remove().exec();
-
 // Clear old boxes, then add new ones
 Box.find({}).remove(function(){
   Box.create({

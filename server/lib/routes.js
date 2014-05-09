@@ -47,6 +47,9 @@ module.exports = function(app) {
   app.route('/api/files/:id')
     .delete(file.delete);
 
+  app.route('/api/files/deploy/:id')
+    .get(file.deploy);
+
   app.route('/api/files/upload')
     .post(multiparty, upload.uploadFile)
     .get(upload.statusCheck);

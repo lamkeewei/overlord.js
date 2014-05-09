@@ -64,6 +64,20 @@ angular.module('serverApp')
       return selected;
     };
 
+    $scope.deploySelected = function(){
+      var promises = [];
+
+      angular.forEach($scope.files, function(file, i){
+        if (file.selected) {
+          promises.push(File.deploy({ deployId: file._id }).$promise);
+        }
+      });
+
+      $q.all(promises).then(function(){
+        console.log('deployed');
+      });
+    };
+
     hotkeys.add('alt+u', 'Upload files', function(event, hotkey){
       event.preventDefault();
       $scope.addFile();
