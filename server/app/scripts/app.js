@@ -7,7 +7,8 @@ angular.module('serverApp', [
   'ngRoute',
   'ui.bootstrap',
   'cfp.hotkeys',
-  'ui.ace'
+  'ui.ace',
+  'btford.socket-io'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

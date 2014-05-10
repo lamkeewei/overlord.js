@@ -35,9 +35,14 @@ require('./lib/config/express')(app);
 require('./lib/routes')(app);
 
 // Start server
-app.listen(config.port, config.ip, function () {
+var server = app.listen(config.port, config.ip, function () {
   console.log('Express server listening on %s:%d, in %s mode', config.ip, config.port, app.get('env'));
 });
+
+// Setup socket.io
+var io = require('socket.io').listen(server);
+require('./lib/sockets')(io);
+
 
 // Expose app
 exports = module.exports = app;

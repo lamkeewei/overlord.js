@@ -41,8 +41,12 @@
             <span class="label" ng-class="{ 'label-danger': box.status === 'Offline', 'label-success': box.status === 'Online'  }">{{box.status}}</span>
           </td>
           <td>
-            <button ng-click="deleteServer(box.name)" class="btn btn-default">Delete</button>
-            <button ng-click="editServer(box.name)" class="btn btn-default">Edit</button>
+            <button tooltip="Delete Server" ng-click="deleteServer(box.name)" class="btn btn-default">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+            <button tooltip="Edit Information" ng-click="editServer(box.name)" class="btn btn-default">
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
           </td>
         </tr>
         <tr ng-show="boxes.length < 1">

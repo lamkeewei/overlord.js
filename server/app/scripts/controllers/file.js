@@ -3,6 +3,7 @@
 angular.module('serverApp')
   .controller('FileCtrl', function ($scope, $http, $filter, File, $modal, hotkeys, $q) {
     $scope.files = [];
+    $scope.isDeploying = false;
 
     $scope.init = function(){
       File.query(function(files){
@@ -72,6 +73,7 @@ angular.module('serverApp')
     };
 
     $scope.deploySelected = function(){
+      $scope.isDeploying = true;
       var promises = [];
 
       angular.forEach($scope.files, function(file, i){
@@ -82,6 +84,7 @@ angular.module('serverApp')
       });
 
       $q.all(promises).then(function(){
+        $scope.isDeploying = false;
         $scope.init();
       });
     };
@@ -89,8 +92,6 @@ angular.module('serverApp')
     $scope.undeploy = function(id){
       File.undeploy({ deployId: id }, function(){
         $scope.init();
-      }, function(){
-        console.log('undeploying:', id);
       });
     };
 

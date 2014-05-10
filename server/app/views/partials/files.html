@@ -14,6 +14,16 @@
   </div>
 </div>
 
+<div class="row" ng-show="isDeploying">
+  <div class="col-md-12">
+    <div class="progress progress-striped active">
+      <div class="progress-bar text-center" role="progressbar" style="width: 100%">
+        Copying to sync folder...
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-6">
     <h3>File Store</h3>
@@ -34,7 +44,7 @@
           </td>
           <td>{{file.name}}</td>
           <td>
-            <button class="btn btn-default btn-sm" ng-click="deleteFile(file._id)">
+            <button tooltip="Delete File" class="btn btn-default btn-sm" ng-click="deleteFile(file._id)">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
           </td>
@@ -45,8 +55,6 @@
       </tbody>
     </table>
   </div>
-
-  <div class="col-md-1"></div>
 
   <div class="col-md-6">
     <h3>Deployed Files</h3>
@@ -69,7 +77,7 @@
             {{file.name}}
           </td>
           <td>
-            <button class="btn btn-default">
+            <button class="btn btn-default" tooltip="Undeploy">
               <span class="glyphicon glyphicon-open" ng-click="undeploy(file._id)"></span>
             </button>
           </td>
