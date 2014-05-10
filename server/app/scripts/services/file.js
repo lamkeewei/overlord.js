@@ -9,6 +9,12 @@ angular.module('serverApp')
           params: {
             action: 'deploy'
           }
+        },
+        undeploy: {
+          method: 'GET',
+          params: {
+            action: 'undeploy'
+          }
         }
       });
   });

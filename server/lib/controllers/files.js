@@ -67,3 +67,17 @@ exports.deploy = function(req, res, next){
     });
   });
 };
+
+/**
+ * Undeploy file 
+ */
+exports.undeploy = function(req, res, next){
+  var id = req.params.id;
+  File.findByIdAndUpdate(id, { deployed: false }, function(err, file){
+    if (err) return res.json(400, err);
+
+    fs.unlink(path.join(deploypath, file.name), function(){
+      res.send(200);
+    });
+  });
+};

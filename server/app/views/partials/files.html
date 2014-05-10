@@ -61,7 +61,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="file in fileStore">
+        <tr ng-repeat="file in fileStore" ng-class="{'info': file.selected}">
           <td>
             <input type="checkbox" ng-model="file.selected"/>
           </td>
@@ -70,7 +70,7 @@
           </td>
           <td>
             <button class="btn btn-default">
-              <span class="glyphicon glyphicon-trash"></span>
+              <span class="glyphicon glyphicon-open" ng-click="undeploy(file._id)"></span>
             </button>
           </td>
         </tr>

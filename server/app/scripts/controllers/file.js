@@ -86,6 +86,14 @@ angular.module('serverApp')
       });
     };
 
+    $scope.undeploy = function(id){
+      File.undeploy({ deployId: id }, function(){
+        $scope.init();
+      }, function(){
+        console.log('undeploying:', id);
+      });
+    };
+
     hotkeys.add('alt+u', 'Upload files', function(event, hotkey){
       event.preventDefault();
       $scope.addFile();

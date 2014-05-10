@@ -50,6 +50,9 @@ module.exports = function(app) {
   app.route('/api/files/deploy/:id')
     .get(file.deploy);
 
+  app.route('/api/files/undeploy/:id')
+    .get(file.undeploy);
+
   app.route('/api/files/upload')
     .post(multiparty, upload.uploadFile)
     .get(upload.statusCheck);
