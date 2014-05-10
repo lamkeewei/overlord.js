@@ -62,9 +62,17 @@
       </thead>
       <tbody>
         <tr ng-repeat="file in fileStore">
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            <input type="checkbox" ng-model="file.selected"/>
+          </td>
+          <td>
+            {{file.name}}
+          </td>
+          <td>
+            <button class="btn btn-default">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </td>
         </tr>
         <tr ng-show="fileStore.length < 1">
           <td colspan="3" class="text-center">No files deployed.</td>

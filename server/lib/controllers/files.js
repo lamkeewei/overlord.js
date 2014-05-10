@@ -57,13 +57,13 @@ exports.getAllFiles = function(req, res, next){
  */
 exports.deploy = function(req, res, next){
   var id = req.params.id;
-  File.findOne({ _id: id }, function(err, file){
+  File.findByIdAndUpdate(id, { deployed: true }, function(err, file){
     if (err) return res.json('400', err);
     var stream = fs.createWriteStream(path.join(deploypath, file.name));
     resumable.write(file.identifier, stream, {
       onDone: function(){
         res.send(200);
       }
-    });    
+    });
   });
 };

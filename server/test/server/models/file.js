@@ -63,4 +63,16 @@ describe('File Model', function(){
       });
     });
   });
+
+  it('should update the status of a file', function(done){
+    file.save(function(err){
+      should.not.exist(err);
+
+      File.findByIdAndUpdate(file._id, { deployed: true }, function(err, f){
+        should.not.exist(err);
+        f.deployed.should.be.true;
+        done();
+      });
+    });
+  });
 });

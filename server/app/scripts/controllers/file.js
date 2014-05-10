@@ -1,9 +1,17 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('FileCtrl', function ($scope, $http, File, $modal, hotkeys, $q) {
-    $scope.files = File.query();
-    $scope.fileStore = [];
+  .controller('FileCtrl', function ($scope, $http, $filter, File, $modal, hotkeys, $q) {
+    $scope.files = [];
+
+    $scope.init = function(){
+      File.query(function(files){
+        $scope.fileStore = $filter('filter')(files, { deployed: true });
+        $scope.files = $filter('filter')(files, { deployed: false });
+      });
+    };
+
+    $scope.init();
 
     $scope.addFile = function(){
       var modalInstance = $modal.open({
@@ -12,17 +20,16 @@ angular.module('serverApp')
       });
 
       modalInstance.result.then(function(reply){
-        $scope.files = File.query();
+        $scope.init();
       });
     };
 
     $scope.deleteFile = function(id){
       File.delete({ id: id }, function(){
-        $scope.files = File.query();
+        $scope.init();
       });
     };
     
-
     $scope.deleteSelectedFiles = function(){
       var promises = [];
       angular.forEach($scope.files, function(file, i){
@@ -70,11 +77,12 @@ angular.module('serverApp')
       angular.forEach($scope.files, function(file, i){
         if (file.selected) {
           promises.push(File.deploy({ deployId: file._id }).$promise);
+          file.selected = false;
         }
       });
 
       $q.all(promises).then(function(){
-        console.log('deployed');
+        $scope.init();
       });
     };
 
