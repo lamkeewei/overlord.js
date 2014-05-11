@@ -10,6 +10,18 @@ module.exports = function(io, app){
     io.sockets.emit('status-change', { name: name, status: 'Online' });
   };
 
+  var runCommand = function(cmd, fn){
+    var sockets = io.of('/minions').clients();
+
+    sockets.forEach(function(s){
+      s.emit('run-command', { command: cmd }, function(stdout){
+        s.get('name', function(err, name){
+          io.sockets.emit('command-reply', { name: name, reply: stdout });
+        });
+      });
+    });
+  };
+
   // Sockets bindings for minions
   var minions = io.of('/minions').on('connection', function(socket){
     socket.on('online', function(data){
@@ -33,22 +45,9 @@ module.exports = function(io, app){
 
   // Sockets binding for root namespace
   io.sockets.on('connection', function(socket){
-
-  });
-
-  //Express routes
-  var runCommands = function(req, res, next){
-    var data = req.body;
-    var cmd = data.command;
-
-    var sockets = io.of('/minions').clients();
-    sockets.forEach(function(s){
-      s.emit('run-command', { command: cmd }, function(stdout){
-        console.log(stdout);
-      });
+    socket.on('run-command', function(data){
+      var command = data.command;
+      runCommand(command);
     });
-  };
-
-  app.route('/api/scripts/run')
-    .post(runCommands);
+  });
 };
