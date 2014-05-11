@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "socket.io-client": "~0.9.16"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "~0.10.0",
+    "load-grunt-tasks": "~0.4.0",
+    "grunt-newer": "~0.7.0",
+    "grunt-contrib-watch": "~0.6.1"
+  }
+}

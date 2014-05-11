@@ -41,8 +41,7 @@ var server = app.listen(config.port, config.ip, function () {
 
 // Setup socket.io
 var io = require('socket.io').listen(server);
-require('./lib/sockets')(io);
-
+require('./lib/sockets')(io, app);
 
 // Expose app
 exports = module.exports = app;
