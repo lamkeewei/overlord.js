@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('MainCtrl', function ($scope, $http, Auth, $location, Box, $modal, hotkeys, $q) {
+  .controller('MainCtrl', function ($scope, $http, Auth, $location, Box, $modal, hotkeys, $q, Socket) {
     $scope.boxes = Box.query();
 
     $scope.logout = function() {
@@ -103,6 +103,17 @@ angular.module('serverApp')
       });
     };
 
+    // Socket bindings
+    Socket.on('status-change', function(data){
+      var name = data.name;
+      angular.forEach($scope.boxes, function(box, i){
+        if (box.name === name) {
+          box.status = data.status;
+        }
+      });
+    });
+
+    // Hotkeys
     hotkeys.add('alt+n', 'New server', function(event, hotkey){
       event.preventDefault();
       $scope.addServer();

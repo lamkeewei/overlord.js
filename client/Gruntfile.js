@@ -2,13 +2,16 @@
 
 module.exports = function(grunt){
   
-  // Load al tasks
+  // Load all tasks
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
     watch: {
-      js: {        
-        files: ['*.js'],
+      js: {
+        options: {
+          reload: true
+        },
+        files: ['*.js', 'lib/**/*.js'],
         tasks: ['newer:jshint:all']
       }
     },
@@ -17,8 +20,25 @@ module.exports = function(grunt){
         jshintrc: '.jshintrc'
       },
       all: [
-        '*.js'
+        '*.js', 'lib/**/*.js'
       ]
+    },
+    nodemon: {
+      dev: {
+        script: 'server.js'
+      }
+    },
+    concurrent: {
+      dev: {
+        tasks: [ 'nodemon', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
     }
   });
+
+  grunt.registerTask('default', [
+    'concurrent:dev'
+  ]);
 };

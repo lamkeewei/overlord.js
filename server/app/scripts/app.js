@@ -55,6 +55,9 @@ angular.module('serverApp', [
   .service('Resumable', function(){
     return window.Resumable;
   })
+  .factory('Socket', function(socketFactory){
+    return socketFactory();
+  })
   .run(function ($rootScope, $location, Auth) {
 
     // Redirect to login if route requires auth and you're not logged in
