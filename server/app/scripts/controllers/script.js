@@ -10,18 +10,13 @@ angular.module('serverApp')
     $scope.replies = [];
 
     $scope.runCommand = function(){
-      $scope.replies = [];
-      
       var data = {
         command: $scope.command
       };
 
-      Socket.emit('run-command', data);
+      Socket.emit('run-command', data, function(results){
+        $scope.replies = results;
+      });
       $scope.command = '';
     };
-
-    Socket.on('command-reply', function(data){
-      $scope.replies.push(data);
-      console.log(data.reply);
-    });
   });

@@ -150,6 +150,6 @@ input[type="checkbox"]:hover{
 #output-table td pre {
   background-color: rgb(27,38,44);
   color: rgb(147,169,181);
-  height: 250px;
+  height: 200px;
   overflow: scroll;
 }

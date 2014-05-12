@@ -1,5 +1,6 @@
 'use strict';
-var mongoose = require('mongoose'),
+var Q = require('q'),
+    mongoose = require('mongoose'),
     Box = mongoose.model('Box');
 
 module.exports = function(io, app){
@@ -12,14 +13,25 @@ module.exports = function(io, app){
 
   var runCommand = function(cmd, fn){
     var sockets = io.of('/minions').clients();
+    var promises = [];
 
     sockets.forEach(function(s){
+      var deferred = Q.defer();
+      
       s.emit('run-command', { command: cmd }, function(stdout){
         s.get('name', function(err, name){
-          io.sockets.emit('command-reply', { name: name, reply: stdout });
+          var res = { 
+            name: name,
+            reply: stdout 
+          };
+          deferred.resolve(res);
         });
       });
+
+      promises.push(deferred.promise);
     });
+
+    return Q.all(promises);
   };
 
   // Sockets bindings for minions
@@ -45,9 +57,12 @@ module.exports = function(io, app){
 
   // Sockets binding for root namespace
   io.sockets.on('connection', function(socket){
-    socket.on('run-command', function(data){
+    socket.on('run-command', function(data, fn){
       var command = data.command;
-      runCommand(command);
+      var promises = runCommand(command);
+      promises.then(function(results){
+        fn(results);
+      });
     });
   });
 };

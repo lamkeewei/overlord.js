@@ -18,7 +18,8 @@
     "passport-local": "~0.1.6",
     "ejs": "~0.8.4",
     "connect-multiparty": "~1.0.3",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "q": "~1.0.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
