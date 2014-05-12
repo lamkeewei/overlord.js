@@ -1,45 +1,67 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>Add a New Script</h1>
+    <h1>Script Execution</h1>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
     <form role="form" ng-submit="runCommand()">
-      <div class="form-group">
+      <!-- <div class="form-group">
         <input type="text" class="form-control" id="" placeholder="Enter description for your script" focus />
-      </div>
+      </div> -->
       
       <div class="form-group" id="script-editor">
         <div ng-model="command" ui-ace="editorOptions"></div>
       </div>
-      <button type="submit" class="pull-right btn btn-primary">Add New Script</button>
+      <button type="submit" ng-disabled="!command" class="pull-right btn btn-primary">Execute Script</button>
     </form>
   </div>
 </div>
 
-<div id="output-table" class="row" ng-show="replies.length > 0">
+<div class="row" ng-show="replies.length > 0">
   <div class="col-md-12">
-    <div>      
-      <table class="table table-striped table-hover table-bordered">
-        <thead>
-          <tr>
-            <th>Server</th>
-            <th>Output</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="reply in replies">
-            <td>
-              <h4><span class="label label-primary">{{reply.name}}</span></h4>
-            </td>
-            <td>
-              <pre>{{reply.reply}}</pre>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="results-controls">      
+      <form class="form-inline">
+        <div class="form-group">
+          <label class="control-label">Filter: </label>
+          <input type="text" class="form-control" id="search-control" placeholder="Search..." ng-model="search.reply">
+        </div>
+        <div class="form-group">
+          <select class="form-control">
+            <option>All</option>
+            <option>Success</option>
+            <option>Failed</option>
+          </select>
+        </div>
+      </form>
     </div>
+    <table id="output-table" class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Server</th>
+          <th>Exit Code</th>
+          <th>Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="reply in replies | filter:search">
+          <td>
+            <h4><span class="label label-primary">{{reply.name}}</span></h4>
+          </td>
+          <td>
+            <h4><span class="label" ng-class="{'label-success': reply.code === 0, 'label-danger': reply.code !== 0 }">{{reply.code}}</span></h4>
+          </td>
+          <td>
+            <pre ng-bind-html="reply.reply | highlight:search.reply"></pre>
+          </td>
+        </tr>
+        <tr ng-show="(replies | filter:search).length === 0" class="text-center">
+          <td colspan="3" class="text-center">
+            No matching results.
+          </td>
+        </tr>    
+      </tbody>
+    </table>    
   </div>
 </div>

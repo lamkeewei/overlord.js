@@ -68,7 +68,7 @@
 }
 
 .ace_editor {
-  height: 250px;
+  height: 200px;
 }
 
 #script-editor {
@@ -147,9 +147,34 @@ input[type="checkbox"]:hover{
   text-align: center;
 }
 
+#output-table th:nth-child(2) {
+  width: 10%;
+  text-align: center;
+}
+
+#output-table td:nth-child(2) {
+  text-align: center;
+}
+
 #output-table td pre {
   background-color: rgb(27,38,44);
   color: rgb(147,169,181);
   height: 200px;
   overflow: scroll;
+}
+
+#results-controls {
+  margin-top: 10px;
+  padding: 15px 15px;
+  border-radius: 5px;
+  background-color: rgb(249,249,249);
+}
+
+#search-control {
+  width: 300px;
+}
+
+span.highlight {
+  background-color: yellow;
+  color: rgb(27,38,44);
 }

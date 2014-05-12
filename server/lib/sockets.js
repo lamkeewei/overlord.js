@@ -18,11 +18,12 @@ module.exports = function(io, app){
     sockets.forEach(function(s){
       var deferred = Q.defer();
       
-      s.emit('run-command', { command: cmd }, function(stdout){
+      s.emit('run-command', { command: cmd }, function(data){
         s.get('name', function(err, name){
           var res = { 
             name: name,
-            reply: stdout 
+            code: data.code,
+            reply: data.reply
           };
           deferred.resolve(res);
         });

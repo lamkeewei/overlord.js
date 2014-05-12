@@ -13,7 +13,20 @@ socket.on('connect', function(){
 socket.on('run-command', function(data, fn){
   var command = data.command;
 
-  exec(command, function(error, stdout, stderr){
-    fn(stdout);
+  exec(command, function(err, stdout, stderr){
+    var exitCode = 0;
+    var reply = stdout;
+
+    if (err) {
+      exitCode = err.code;
+      reply = stderr;
+    }
+
+    var data = {
+      code: exitCode,
+      reply: reply
+    };
+
+    fn(data);
   });
 });
