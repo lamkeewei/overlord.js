@@ -1,8 +1,11 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('UploadCtrl', function ($scope, $http, $modalInstance, Resumable, $location) {
+  .controller('UploadCtrl', function ($scope, $http, $modalInstance, Resumable, $location, _) {
     $scope.haveFiles = false;
+    $scope.image = {};
+    $scope.submitted = false;
+    console.log($scope.imageForm);
 
     $scope.r = new Resumable({
       target: '/api/files/upload',
@@ -16,6 +19,13 @@ angular.module('serverApp')
 
     $scope.r.on('complete', function(){
       if ($scope.r.files.length > 0){
+        $scope.image.files = _.map($scope.r.files, function(f){
+          return {
+            identifier: f.uniqueIdentifier,
+            fileName: f.fileName
+          };
+        });
+
         $scope.$apply(function(){
           $scope.haveFiles = false;
           $modalInstance.close();
@@ -27,7 +37,13 @@ angular.module('serverApp')
       $scope.haveFiles = false;
     });
 
-    $scope.upload = function(){
+    $scope.upload = function(form){
+      $scope.submitted = true;
+
+      if(form.$invalid){
+        return;
+      }
+
       $scope.r.upload();
     };
   });

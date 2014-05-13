@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  name: 'SIS01'
+  name: process.env.MACHINENAME || 'SIS01'
 };

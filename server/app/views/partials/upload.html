@@ -4,12 +4,19 @@
     <h4 class="modal-title">Upload Files</h4>
   </div>
   <div class="modal-body">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Enter image name">
-      <span class="input-group-btn">        
-        <button resumable-browse class="btn btn-primary">Browse</button>
-      </span>      
-    </div>
+    <form name="imageForm">
+      <div class="form-group" ng-class="{'has-error': imageForm.imageName.$invalid && submitted}">        
+        <div class="input-group">
+          <input type="text" class="form-control" name="imageName" ng-model="image.name" placeholder="Enter image name" required />
+          <span class="input-group-btn">        
+            <button resumable-browse class="btn btn-primary">Browse</button>
+          </span>      
+        </div>
+        <p ng-show="imageForm.imageName.$invalid && submitted" class="text-center help-block">
+          Please enter a valid image name.
+        </p>
+      </div>
+    </form>
 
     <div resumable-drop id="drop-zone">
       <p>
@@ -26,6 +33,6 @@
   <div class="modal-footer">
     <button type="button" ng-click="$dismiss()" class="btn btn-default">Close</button>
     <button class="btn btn-warning" ng-click="r.pause()" ng-show="r.isUploading()">Pause Upload</button>
-    <button type="button" ng-click="upload()" class="btn btn-success" ng-show="!r.isUploading()">Upload</button>
+    <button type="button" ng-click="upload(imageForm)" class="btn btn-success" ng-show="!r.isUploading()">Upload</button>
   </div>
 </div><!-- /.modal-content -->

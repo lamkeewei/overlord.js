@@ -24,7 +24,7 @@
     <div id="results-controls">      
       <form class="form-inline">
         <div class="form-group">
-          <label class="control-label">Filter: </label>
+          <label class="control-label">Filter output: </label>
           <input type="text" class="form-control" id="search-control" placeholder="Search..." ng-model="search.reply">
         </div>
         <div class="form-group">
@@ -34,6 +34,7 @@
             <option>Failed</option>
           </select>
         </div>
+        <button class="btn btn-default" ng-click="reset()">Reset</button>
       </form>
     </div>
     <table id="output-table" class="table table-striped table-hover table-bordered">

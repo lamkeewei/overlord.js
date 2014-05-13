@@ -103,6 +103,10 @@ angular.module('serverApp')
       });
     };
 
+    $scope.refresh = function(){
+      $scope.boxes = Box.query();
+    };
+
     // Socket bindings
     Socket.on('status-change', function(data){
       var name = data.name;

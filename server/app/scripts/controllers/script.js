@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('ScriptCtrl', function ($scope, $http, Socket, highlightFilter) {
+  .controller('ScriptCtrl', function ($scope, $http, Socket, highlightFilter, Box) {
     $scope.editorOptions = {
       mode: 'sh'
     };
 
+    $scope.boxes = Box.query();
     $scope.replies = [];
     $scope.search = {};
 
@@ -23,7 +24,14 @@ angular.module('serverApp')
         });
 
         $scope.replies = results;
+        $scope.search = {};
       });
+    };
+
+    $scope.reset = function(){
+      $scope.command = '';
+      $scope.search = {};
+      $scope.replies = [];
     };
 
     $scope.isAllSuccessful = function(){
