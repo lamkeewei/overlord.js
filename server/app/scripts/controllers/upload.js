@@ -21,8 +21,8 @@ angular.module('serverApp')
       if ($scope.r.files.length > 0){
         $scope.image.files = _.map($scope.r.files, function(f){
           return {
-            identifier: f.uniqueIdentifier,
-            fileName: f.fileName
+            fileName: f.fileName,
+            identifier: f.uniqueIdentifier
           };
         });
 
