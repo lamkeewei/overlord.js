@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('FileCtrl', function ($scope, $http, $filter, File, $modal, hotkeys, $q) {
-    $scope.files = [];
+  .controller('ImageCtrl', function ($scope, $http, $filter, File, Image, $modal, hotkeys, $q) {
+    $scope.images = [];
     $scope.isDeploying = false;
 
     $scope.init = function(){
-      File.query(function(files){
-        $scope.fileStore = $filter('filter')(files, { deployed: true });
-        $scope.files = $filter('filter')(files, { deployed: false });
+      Image.query(function(images){
+        $scope.imageStore = $filter('filter')(images, { deployed: true });
+        $scope.images = $filter('filter')(images, { deployed: false });
       });
     };
 
     $scope.init();
 
-    $scope.addFile = function(){
+    $scope.addImage = function(){
       var modalInstance = $modal.open({
         templateUrl: 'partials/upload.html',
         controller: 'UploadCtrl'
@@ -25,13 +25,13 @@ angular.module('serverApp')
       });
     };
 
-    $scope.deleteFile = function(id){
+    $scope.deleteImage = function(id){
       File.delete({ id: id }, function(){
         $scope.init();
       });
     };
     
-    $scope.deleteSelectedFiles = function(){
+    $scope.deleteSelectedImages = function(){
       var promises = [];
       angular.forEach($scope.files, function(file, i){
         if (file.selected) {

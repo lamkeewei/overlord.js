@@ -1,11 +1,11 @@
 'use strict';
 
-describe('Controller: FileCtrl', function () {
+describe('Controller: ImageCtrl', function () {
 
   // load the controller's module
   beforeEach(module('serverApp'));
 
-  var FileCtrl,
+  var ImageCtrl,
     scope,
     $httpBackend;
 
@@ -15,7 +15,7 @@ describe('Controller: FileCtrl', function () {
     $httpBackend.expectGET('/api/awesomeThings')
       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
     scope = $rootScope.$new();
-    FileCtrl = $controller('FileCtrl', {
+    ImageCtrl = $controller('ImageCtrl', {
       $scope: scope
     });
   }));

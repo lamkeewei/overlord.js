@@ -5,7 +5,6 @@ angular.module('serverApp')
     $scope.haveFiles = false;
     $scope.image = {};
     $scope.submitted = false;
-    console.log($scope.imageForm);
 
     $scope.r = new Resumable({
       target: '/api/files/upload',

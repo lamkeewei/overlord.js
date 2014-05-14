@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>Manage Your Files</h1>
+    <h1>Manage Your Images</h1>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
     <div class="well">
-      <button class="btn btn-primary" ng-click="addFile()">Add Files</button>
-      <button class="btn btn-primary" ng-click="deploySelected()">Deploy Selected Files</button>
-      <button class="btn btn-danger" ng-click="deleteSelectedFiles()">Delete Selected Files</button>
+      <button class="btn btn-primary" ng-click="addImage()">Add Image</button>
+      <button class="btn btn-primary" ng-click="deploySelected()">Deploy Selected Images</button>
+      <button class="btn btn-danger" ng-click="deleteSelectedImages()">Delete Selected Images</button>
     </div>    
   </div>
 </div>
@@ -26,64 +26,64 @@
 
 <div class="row">
   <div class="col-md-6">
-    <h3>File Store</h3>
+    <h3>Image Store</h3>
     <table class="file-table table table-striped table-bordered table-hover">
       <thead>
         <tr>
           <th>
             <input type="checkbox" ng-click="selectAll()" ng-checked="isAllSelected()" />
           </th>
-          <th>File Name</th>
+          <th>Image Name</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="file in files" ng-class="{'info': file.selected }">
+        <tr ng-repeat="image in images" ng-class="{'info': image.selected }">
           <td>
-            <input type="checkbox" ng-model="file.selected"/>
+            <input type="checkbox" ng-model="image.selected"/>
           </td>
-          <td>{{file.name}}</td>
+          <td>{{image.name}}</td>
           <td>
-            <button tooltip="Delete File" class="btn btn-default btn-sm" ng-click="deleteFile(file._id)">
+            <button tooltip="Delete Image" class="btn btn-default btn-sm" ng-click="deleteImage(image._id)">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
           </td>
         </tr>
-        <tr ng-show="files.length < 1">
-          <td colspan="3" class="text-center">No files uploaded.</td>
+        <tr ng-show="images.length < 1">
+          <td colspan="3" class="text-center">No images uploaded.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="col-md-6">
-    <h3>Deployed Files</h3>
+    <h3>Deployed Images</h3>
     <table class="file-table table table-striped table-bordered table-hover">
       <thead>
         <tr>
           <th>
             <input type="checkbox" />
           </th>
-          <th>File Name</th>
+          <th>Image Name</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="file in fileStore" ng-class="{'info': file.selected}">
+        <tr ng-repeat="image in imageStore" ng-class="{'info': image.selected}">
           <td>
-            <input type="checkbox" ng-model="file.selected"/>
+            <input type="checkbox" ng-model="image.selected"/>
           </td>
           <td>
-            {{file.name}}
+            {{image.name}}
           </td>
           <td>
             <button class="btn btn-default" tooltip="Undeploy">
-              <span class="glyphicon glyphicon-open" ng-click="undeploy(file._id)"></span>
+              <span class="glyphicon glyphicon-open" ng-click="undeploy(image._id)"></span>
             </button>
           </td>
         </tr>
-        <tr ng-show="fileStore.length < 1">
-          <td colspan="3" class="text-center">No files deployed.</td>
+        <tr ng-show="imageStore.length < 1">
+          <td colspan="3" class="text-center">No images deployed.</td>
         </tr>
       </tbody>
     </table>

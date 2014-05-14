@@ -22,9 +22,9 @@ angular.module('serverApp', [
         controller: 'ScriptCtrl',
         authenticate: true
       })
-      .when('/files', {
-        templateUrl: 'partials/files',
-        controller: 'FileCtrl',
+      .when('/images', {
+        templateUrl: 'partials/images',
+        controller: 'ImageCtrl',
         authenticate: true
       })
       .when('/login', {

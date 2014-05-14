@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 
 var ImageSchema = new Schema({
   name: { type: String, required: true },
+  deployed: { type: Boolean, default: false },
   files: [ FileSchema ]
 });
 

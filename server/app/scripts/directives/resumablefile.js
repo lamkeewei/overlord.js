@@ -26,21 +26,8 @@ angular.module('serverApp')
           if(file.fileName === fileName){
             progressBar.addClass('progress-bar-success');
             scope.isComplete = true;
-            scope.$apply(function(){
-              File.save({
-                name: file.fileName,
-                identifier: file.uniqueIdentifier
-              });
-            });
           }
         });
-
-        // resumable.on('fileRetry', function(file){
-        //   if(file.fileName === fileName) {
-        //     console.log('retry');
-        //     scope.$apply();
-        //   }
-        // });
 
         scope.retry = function(){
           scope.$apply(function(){
