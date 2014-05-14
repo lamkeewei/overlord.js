@@ -34,13 +34,19 @@ angular.module('serverApp')
       }
     });
 
+    $scope.$watch('image.name', function(newVal, oldVal){
+      if($scope.image.name){
+        $scope.image.name = $scope.image.name.replace(' ', '_');
+      }
+    });
+
     $scope.r.on('cancel', function(){
       $scope.haveFiles = false;
     });
 
     $scope.upload = function(form){
       $scope.submitted = true;
-
+      var name = $scope.image.name;
       if(form.$invalid){
         return;
       }

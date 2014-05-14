@@ -26,17 +26,17 @@ angular.module('serverApp')
     };
 
     $scope.deleteImage = function(id){
-      File.delete({ id: id }, function(){
+      Image.delete({ id: id }, function(){
         $scope.init();
       });
     };
     
     $scope.deleteSelectedImages = function(){
       var promises = [];
-      angular.forEach($scope.files, function(file, i){
+      angular.forEach($scope.images, function(file, i){
         if (file.selected) {
           var id = file._id;
-          promises.push(File.delete({ id: id }).$promise);
+          promises.push(Image.delete({ id: id }).$promise);
         }
       });
 
@@ -45,13 +45,13 @@ angular.module('serverApp')
       }
 
       $q.all(promises).then(function(){
-        $scope.files = File.query();
+        $scope.init();
       });
     };
 
     $scope.selectedAll = false;
     $scope.selectAll = function(){
-      angular.forEach($scope.files, function(file, i){
+      angular.forEach($scope.images, function(file, i){
         file.selected = !$scope.selectedAll;
       });
 
@@ -60,11 +60,11 @@ angular.module('serverApp')
 
     $scope.isAllSelected = function(){
       var selected = true;
-      angular.forEach($scope.files, function(file, i){
+      angular.forEach($scope.images, function(file, i){
         selected = file.selected && selected;
       });
 
-      if($scope.files.length < 1){
+      if($scope.images.length < 1){
         selected = false;
       }
 
@@ -76,7 +76,7 @@ angular.module('serverApp')
       $scope.isDeploying = true;
       var promises = [];
 
-      angular.forEach($scope.files, function(file, i){
+      angular.forEach($scope.images, function(file, i){
         if (file.selected) {
           promises.push(File.deploy({ deployId: file._id }).$promise);
           file.selected = false;
@@ -95,7 +95,7 @@ angular.module('serverApp')
       });
     };
 
-    hotkeys.add('alt+u', 'Upload files', function(event, hotkey){
+    hotkeys.add('alt+u', 'Upload images', function(event, hotkey){
       event.preventDefault();
       $scope.addFile();
     });

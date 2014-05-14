@@ -42,7 +42,11 @@
           <td>
             <input type="checkbox" ng-model="image.selected"/>
           </td>
-          <td>{{image.name}}</td>
+          <td>
+            {{image.name}}
+            <br />
+            <small>{{image.files.length}} files in image</small>
+          </td>
           <td>
             <button tooltip="Delete Image" class="btn btn-default btn-sm" ng-click="deleteImage(image._id)">
               <span class="glyphicon glyphicon-trash"></span>
@@ -74,7 +78,7 @@
             <input type="checkbox" ng-model="image.selected"/>
           </td>
           <td>
-            {{image.name}}
+            {{image.name}}            
           </td>
           <td>
             <button class="btn btn-default" tooltip="Undeploy">
