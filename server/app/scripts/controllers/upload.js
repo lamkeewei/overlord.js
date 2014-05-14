@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('UploadCtrl', function ($scope, $http, $modalInstance, Resumable, $location, _) {
+  .controller('UploadCtrl', function ($scope, $http, $modalInstance, Resumable, $location, _, Image) {
     $scope.haveFiles = false;
     $scope.image = {};
     $scope.submitted = false;
@@ -21,12 +21,14 @@ angular.module('serverApp')
       if ($scope.r.files.length > 0){
         $scope.image.files = _.map($scope.r.files, function(f){
           return {
-            fileName: f.fileName,
+            name: f.fileName,
             identifier: f.uniqueIdentifier
           };
         });
 
-        $scope.$apply(function(){
+        var image = new Image($scope.image);
+
+        image.$save(function(){
           $scope.haveFiles = false;
           $modalInstance.close();
         });

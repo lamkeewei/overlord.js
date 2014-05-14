@@ -138,3 +138,39 @@ describe('DELETE /api/files/:id', function(){
       });
   });
 });
+
+describe('POST /api/images', function(){
+  it('should add an image', function(done){
+    var image = {
+      name: 'LabTes1',
+      files: [
+        {
+          name: 'Test.png',
+          identifier: 'Test.png'
+        }
+      ]
+    };
+
+    request(app)
+      .post('/api/images')
+      .send(image)
+      .expect(200)
+      .end(function(err, res){
+        should.not.exist(err);
+        done();
+      });
+  });
+
+  describe('GET /api/images', function(){
+    it('should return all images', function(done){
+      request(app)
+        .get('/api/images')
+        .expect(200)
+        .end(function(err, res){
+          should.not.exist(err);
+          res.body.should.be.instanceof(Array);
+          done();
+        });
+    });
+  });
+});

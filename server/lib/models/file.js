@@ -9,4 +9,5 @@ var FileSchema = new Schema({
   deployed : { type: 'Boolean', default: false }
 });
 
-module.exports = mongoose.model('File', FileSchema);
+mongoose.model('File', FileSchema);
+module.exports = FileSchema;
