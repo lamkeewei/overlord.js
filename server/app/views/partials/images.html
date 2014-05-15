@@ -27,7 +27,7 @@
 <div class="row">
   <div class="col-md-6">
     <h3>Image Store</h3>
-    <table class="file-table table table-striped table-bordered table-hover">
+    <table class="file-table table table-bordered table-hover">
       <thead>
         <tr>
           <th>
@@ -62,11 +62,11 @@
 
   <div class="col-md-6">
     <h3>Deployed Images</h3>
-    <table class="file-table table table-striped table-bordered table-hover">
+    <table class="file-table table table-bordered table-hover">
       <thead>
         <tr>
           <th>
-            <input type="checkbox" />
+            <input type="checkbox" ng-click="selectAllDeployed()" ng-checked="isAllSelectedDeployed()" />
           </th>
           <th>Image Name</th>
           <th>Action</th>

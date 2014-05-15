@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('serverApp')
-  .controller('ImageCtrl', function ($scope, $http, $filter, File, Image, $modal, hotkeys, $q) {
+  .controller('ImageCtrl', function ($scope, $http, $filter, File, Image, $modal, hotkeys, $q, Socket) {
     $scope.images = [];
+    $scope.imageStore = [];
     $scope.isDeploying = false;
 
     $scope.init = function(){
@@ -49,7 +50,9 @@ angular.module('serverApp')
       });
     };
 
+    // UI code for existing image
     $scope.selectedAll = false;
+
     $scope.selectAll = function(){
       angular.forEach($scope.images, function(file, i){
         file.selected = !$scope.selectedAll;
@@ -72,13 +75,52 @@ angular.module('serverApp')
       return selected;
     };
 
+    // UI code for deployed image
+    $scope.selectedAllDeployed = false;
+
+    $scope.selectAllDeployed = function(){
+      angular.forEach($scope.imageStore, function(file, i){
+        file.selected = !$scope.selectedAllDeployed;
+      });
+
+      $scope.selectedAllDeployed = !$scope.selectedAllDeployed;
+    };
+
+    $scope.isAllSelectedDeployed = function(){
+      var selected = true;
+      angular.forEach($scope.imageStore, function(file, i){
+        selected = file.selected && selected;
+      });
+
+      if($scope.imageStore.length < 1){
+        selected = false;
+      }
+
+      $scope.selectedAllDeployed = selected;
+      return selected;
+    };
+
+    // Deployment related functions
+    $scope.deploy = function(id){
+      var deferred = $q.defer();
+      Socket.emit('deploy', id, function(err, status){
+        if (err) {
+          deferred.reject(err);
+        }
+
+        deferred.resolve();
+      });
+
+      return deferred.promise;
+    };
+
     $scope.deploySelected = function(){
       $scope.isDeploying = true;
       var promises = [];
 
       angular.forEach($scope.images, function(image, i){
         if (image.selected) {
-          promises.push(Image.deploy({ deployId: image._id }).$promise);
+          promises.push($scope.deploy(image._id));
           image.selected = false;
         }
       });
@@ -90,7 +132,11 @@ angular.module('serverApp')
     };
 
     $scope.undeploy = function(id){
-      Image.undeploy({ deployId: id }, function(){
+      Socket.emit('undeploy', id, function(err, status){
+        if (err) {
+          console.log(err);
+          return;
+        }
         $scope.init();
       });
     };

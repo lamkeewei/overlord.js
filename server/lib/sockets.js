@@ -1,7 +1,15 @@
 'use strict';
 var Q = require('q'),
+    fs = require('fs'),
+    path = require('path'),
+    rimraf = require('rimraf'),
+    config = require('./config/config'),
+    filepath = config.filesLoc,
+    deploypath = config.deployLoc,
+    resumable = require('./controllers/resumable.js')(filepath),
     mongoose = require('mongoose'),
-    Box = mongoose.model('Box');
+    Box = mongoose.model('Box'),
+    Image = mongoose.model('Image');
 
 module.exports = function(io, app){
   // Turn off debug logs
@@ -75,6 +83,59 @@ module.exports = function(io, app){
 
     socket.on('rsync', function(data){
       startRsync();
+    });
+
+    socket.on('deploy', function(id, done){
+      Image.findOne({ _id: id }, function(err, image){
+        if (err) return done(err);
+        var name = image.name;
+        var dir = path.join(deploypath, name);
+
+        fs.mkdir(dir, function(err){
+          if (err) return done(err);
+
+          var promises = [];
+          image.files.forEach(function(file, i){
+            var deferred = Q.defer();
+
+            var stream = fs.createWriteStream(path.join(dir, file.name));
+            resumable.write(file.identifier, stream, {
+              onDone: function(){
+                deferred.resolve();            
+              }
+            });
+
+            promises.push(deferred.promise);
+          });
+
+          Q.all(promises).then(function(){
+            Image.findByIdAndUpdate(id, { deployed: true }, function(err){
+              if (err) return done(err);
+
+              done(null, 'success');
+            });
+          });
+        });
+      });
+    });
+
+    socket.on('undeploy', function(id, done){
+      Image.findOne({ _id: id }, function(err, image){
+      if (err) return done(err);
+
+      var name = image.name;
+      var dir = path.join(deploypath, name);
+
+      rimraf(dir, function(error){
+        if(err) return done(err);
+
+        Image.findByIdAndUpdate(id, { deployed: false }, function(err, image){
+          if (err) return done(err);
+
+          done(null, 'success');
+        });
+      });
+    });
     });
   });
 };

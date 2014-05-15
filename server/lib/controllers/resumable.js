@@ -181,11 +181,9 @@ module.exports = resumable = function(temporaryFolder){
 
           var chunkFilename = getChunkFilename(number, identifier);
 
-          console.log('removing pipeChunkRm ', number, 'chunkFilename', chunkFilename);
           fs.exists(chunkFilename, function(exists) {
               if (exists) {
 
-                  console.log('exist removing ', chunkFilename);
                   fs.unlink(chunkFilename, function(err) {
                       if (options.onError) options.onError(err);
                   });
