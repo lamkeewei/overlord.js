@@ -67,6 +67,12 @@ module.exports = function(app) {
 
   app.route('/api/images/:id')
     .delete(images.delete);
+
+  app.route('/api/images/deploy/:id')
+    .get(images.deploy);
+
+  app.route('/api/images/undeploy/:id')
+    .get(images.undeploy);
     
   // All undefined api routes should return a 404
   app.route('/api/*')

@@ -78,11 +78,13 @@
             <input type="checkbox" ng-model="image.selected"/>
           </td>
           <td>
-            {{image.name}}            
+            {{image.name}}
+            <br />
+            <small>{{image.files.length}} files in image</small>
           </td>
           <td>
-            <button class="btn btn-default" tooltip="Undeploy">
-              <span class="glyphicon glyphicon-open" ng-click="undeploy(image._id)"></span>
+            <button class="btn btn-default" ng-click="undeploy(image._id)" tooltip="Undeploy">
+              <span class="glyphicon glyphicon-open"></span>
             </button>
           </td>
         </tr>

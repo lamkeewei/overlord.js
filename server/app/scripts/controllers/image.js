@@ -76,10 +76,10 @@ angular.module('serverApp')
       $scope.isDeploying = true;
       var promises = [];
 
-      angular.forEach($scope.images, function(file, i){
-        if (file.selected) {
-          promises.push(File.deploy({ deployId: file._id }).$promise);
-          file.selected = false;
+      angular.forEach($scope.images, function(image, i){
+        if (image.selected) {
+          promises.push(Image.deploy({ deployId: image._id }).$promise);
+          image.selected = false;
         }
       });
 
@@ -90,7 +90,7 @@ angular.module('serverApp')
     };
 
     $scope.undeploy = function(id){
-      File.undeploy({ deployId: id }, function(){
+      Image.undeploy({ deployId: id }, function(){
         $scope.init();
       });
     };

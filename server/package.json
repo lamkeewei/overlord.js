@@ -19,7 +19,8 @@
     "ejs": "~0.8.4",
     "connect-multiparty": "~1.0.3",
     "socket.io": "~0.9.16",
-    "q": "~1.0.1"
+    "q": "~1.0.1",
+    "rimraf": "~2.2.8"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
