@@ -72,3 +72,13 @@ exports.deleteBox = function(req, res, next){
     res.send(200);
   });
 };
+
+/*
+ * Server-side method to retrieve active servers
+ */
+exports.getAllActive = function(callback){
+  Box.find({ status: 'Online'}, function(err, boxes){
+    if (err) return callback(err);
+    callback(null, boxes);
+  });
+};

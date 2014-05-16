@@ -128,6 +128,9 @@ angular.module('serverApp')
       $q.all(promises).then(function(){
         $scope.isDeploying = false;
         $scope.init();
+      }, function(errs){
+        $scope.isDeploying = false;
+        console.log(errs);
       });
     };
 

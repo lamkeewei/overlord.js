@@ -9,6 +9,7 @@ var Q = require('q'),
     resumable = require('./controllers/resumable.js')(filepath),
     mongoose = require('mongoose'),
     Box = mongoose.model('Box'),
+    BoxCtrl = require('./controllers/boxes.js'),
     Image = mongoose.model('Image');
 
 module.exports = function(io, app){
@@ -71,6 +72,19 @@ module.exports = function(io, app){
     });
   });
 
+  var checkActive = function(){
+    var deferred = Q.defer();
+    BoxCtrl.getAllActive(function(err, boxes){
+      if (boxes.length < 0) {
+        deferred.reject();
+      }
+
+      deferred.resolve();
+    });
+
+    return deferred.promise;
+  };
+
   // Sockets binding for root namespace
   io.sockets.on('connection', function(socket){
     socket.on('run-command', function(data, fn){
@@ -86,33 +100,43 @@ module.exports = function(io, app){
     });
 
     socket.on('deploy', function(id, done){
-      Image.findOne({ _id: id }, function(err, image){
-        if (err) return done(err);
-        var name = image.name;
-        var dir = path.join(deploypath, name);
+      BoxCtrl.getAllActive(function(err, boxes){
+        if(boxes.length === 0) {
+          // Have to check and wake all up before proceeding;
+          return done({
+            code: 0,
+            msg: 'No boxes are active now'
+          });
+        }
 
-        fs.mkdir(dir, function(err){
+        Image.findOne({ _id: id }, function(err, image){
           if (err) return done(err);
+          var name = image.name;
+          var dir = path.join(deploypath, name);
 
-          var promises = [];
-          image.files.forEach(function(file, i){
-            var deferred = Q.defer();
+          fs.mkdir(dir, function(err){
+            if (err) return done(err);
 
-            var stream = fs.createWriteStream(path.join(dir, file.name));
-            resumable.write(file.identifier, stream, {
-              onDone: function(){
-                deferred.resolve();            
-              }
+            var promises = [];
+            image.files.forEach(function(file, i){
+              var deferred = Q.defer();
+
+              var stream = fs.createWriteStream(path.join(dir, file.name));
+              resumable.write(file.identifier, stream, {
+                onDone: function(){
+                  deferred.resolve();            
+                }
+              });
+
+              promises.push(deferred.promise);
             });
 
-            promises.push(deferred.promise);
-          });
+            Q.all(promises).then(function(){
+              Image.findByIdAndUpdate(id, { deployed: true }, function(err){
+                if (err) return done(err);
 
-          Q.all(promises).then(function(){
-            Image.findByIdAndUpdate(id, { deployed: true }, function(err){
-              if (err) return done(err);
-
-              done(null, 'success');
+                done(null, 'success');
+              });
             });
           });
         });
@@ -120,22 +144,31 @@ module.exports = function(io, app){
     });
 
     socket.on('undeploy', function(id, done){
-      Image.findOne({ _id: id }, function(err, image){
-      if (err) return done(err);
+      BoxCtrl.getAllActive(function(err, boxes){
+        if (boxes.length === 0) {
+          return done({
+            code: 0,
+            msg: 'No boxes are active now'
+          });
+        }
 
-      var name = image.name;
-      var dir = path.join(deploypath, name);
-
-      rimraf(dir, function(error){
-        if(err) return done(err);
-
-        Image.findByIdAndUpdate(id, { deployed: false }, function(err, image){
+        Image.findOne({ _id: id }, function(err, image){
           if (err) return done(err);
 
-          done(null, 'success');
+          var name = image.name;
+          var dir = path.join(deploypath, name);
+
+          rimraf(dir, function(error){
+            if(err) return done(err);
+
+            Image.findByIdAndUpdate(id, { deployed: false }, function(err, image){
+              if (err) return done(err);
+
+              done(null, 'success');
+            });
+          });
         });
       });
-    });
     });
   });
 };
